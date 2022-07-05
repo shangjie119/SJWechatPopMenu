@@ -55,7 +55,7 @@
             [menu showBy:self.textView startRect:startRect endRect:endRect withItems:items];
         }
         __weak typeof(self) weakSelf = self;
-        menu.itemActions = ^(SJPopMenuItemType type) {
+        menu.itemActions = ^(SJPopMenuItemType type, NSString *title) {
             switch (type) {
                 case SJPopMenuItemCopy:
                     [weakSelf coppy];

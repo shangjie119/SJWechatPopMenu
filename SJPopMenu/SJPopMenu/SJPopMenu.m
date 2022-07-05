@@ -508,7 +508,7 @@ static SJPopMenu *menu = nil;
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (self.itemActions) {
         SJPopMenuItem *item = self.items[indexPath.row];
-        self.itemActions(item.itemType);
+        self.itemActions(item.itemType, item.title);
         if (item.itemType != SJPopMenuItemSelectAll) {
             [self clearTextViewSelection:self.targetView];
             [self hideMenu];
@@ -605,6 +605,14 @@ static SJPopMenu *menu = nil;
             break;
         }
     }
+    return item;
+}
+
++ (instancetype)itemWithTitle:(NSString *)title image:(NSString *)image
+{
+    SJPopMenuItem *item = [[SJPopMenuItem alloc] init];
+    item.title = title;
+    item.image = image;
     return item;
 }
 

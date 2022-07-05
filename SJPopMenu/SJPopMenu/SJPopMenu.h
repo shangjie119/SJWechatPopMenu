@@ -17,19 +17,19 @@ static NSString * _Nullable const SJShowPopMenuIfNeeded = @"SJShowPopMenuIfNeede
 static NSString * _Nullable const SJClickPopMenuInTextView = @"SJClickPopMenuInTextView";
 
 typedef NS_ENUM(NSUInteger, SJPopMenuItemType) {
-    SJPopMenuItemMutePlay, /// 静音播放
     SJPopMenuItemCopy, /// 复制
+    SJPopMenuItemSelectAll, ///全选
     SJPopMenuItemWithdraw, /// 撤回
     SJPopMenuItemDelete, /// 删除
     SJPopMenuItemForwarding, /// 转发
     SJPopMenuItemTranslate, /// 翻译
     SJPopMenuItemQuote, /// 引用
+    SJPopMenuItemMultipleChoice, /// 多选
     SJPopMenuItemSave, /// 保存
     SJPopMenuItemDownload, /// 下载
-    SJPopMenuItemMultipleChoice, /// 多选
     SJPopMenuItemPackUp, /// 收起
     SJPopMenuItemRetranslation, /// 重译
-    SJPopMenuItemSelectAll, ///全选
+    SJPopMenuItemMutePlay, /// 静音播放
     SJPopMenuItemRemind, /// 提醒
 };
 
@@ -49,7 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)showBy:(UIView *)target startRect:(CGRect)startRect endRect:(CGRect)endRect withItems:(NSArray <SJPopMenuItem *>*)items keyboardHeight:(CGFloat)keyboardHeight;
 
-@property (nonatomic, copy) void (^itemActions)(SJPopMenuItemType type);
+/// 点击功能可以用type，也可以用name判断
+@property (nonatomic, copy) void (^itemActions)(SJPopMenuItemType type, NSString *title);
 
 @property (nonatomic, copy) void (^menuHideDone)(void);
 
@@ -62,9 +63,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SJPopMenuItem : NSObject
 
++ (instancetype)itemWithType:(SJPopMenuItemType)type;
+
 + (instancetype)itemWithType:(SJPopMenuItemType)type title:(NSString *)title image:(NSString *)image;
 
-+ (instancetype)itemWithType:(SJPopMenuItemType)type;
++ (instancetype)itemWithTitle:(NSString *)title image:(NSString *)image;
 
 @property (nonatomic, assign) SJPopMenuItemType itemType;
 
